@@ -8,7 +8,19 @@ const cron=require('node-cron');
 const app=express();
 app.use(cors());
 app.use(express.json());
+<<<<<<< HEAD
 mongoose.connect('mongodb+srv://Sydney_scraper:Sydney%40scraper@scraperdatabase.lgcp3vk.mongodb.net/test?retryWrites=true&w=majority').then(()=>{console.log('database connnected')}).catch((e)=>{console.log(e)});
+=======
+// mongoose.connect('mongodb+srv://Sydney_scraper:Sydney%40scraper@scraperdatabase.lgcp3vk.mongodb.net/?appName=scraperDatabase').then(()=>{console.log('database connnected')}).catch((e)=>{console.log(e)});
+// const mongoose = require('mongoose');
+
+mongoose.connect('mongodb+srv:Sydney_scraper:Sydney%40scraper@scraperdatabase.lgcp3vk.mongodb.net/?appName=scraperDatabase', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log("MongoDB connected!"))
+.catch(err => console.log("MongoDB connection error:", err));
+>>>>>>> 188b251 (temporary test)
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
