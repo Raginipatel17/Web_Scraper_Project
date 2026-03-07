@@ -43,7 +43,7 @@ cron.schedule("*/10 * * * *", async () => {
 });
 app.get('/test-db', async (req, res) => {
   try {
-    const data = await YourModel.find({}); // MongoDB example
+    const data = await eventschema.find({}); // MongoDB example
     res.json({ success: true, count: data.length, data });
   } catch (err) {
     res.json({ success: false, error: err.message });
