@@ -9,7 +9,7 @@ const app=express();
 app.use(cors());
 app.use(express.json());
 
-// mongoose.connect('mongodb+srv://Sydney_scraper:Sydney%40scraper@scraperdatabase.lgcp3vk.mongodb.net/test?retryWrites=true&w=majority').then(()=>{console.log('database connnected')}).catch((e)=>{console.log(e)});
+mongoose.connect('mongodb+srv://Sydney_scraper:Sydney%40scraper@scraperdatabase.lgcp3vk.mongodb.net/test?retryWrites=true&w=majority').then(()=>{console.log('database connnected')}).catch((e)=>{console.log(e)});
 
 // mongoose.connect('mongodb+srv://Sydney_scraper:Sydney%40scraper@scraperdatabase.lgcp3vk.mongodb.net/?appName=scraperDatabase').then(()=>{console.log('database connnected')}).catch((e)=>{console.log(e)});
 // const mongoose = require('mongoose');
