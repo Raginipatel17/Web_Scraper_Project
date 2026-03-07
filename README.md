@@ -6,7 +6,7 @@ A full-stack web application that automatically scrapes event information from a
 
 This project collects event data from an external website and stores it in a database so users can easily browse and explore upcoming events. The system automatically refreshes the event listings to ensure the information remains up to date.
 
-The application also categorizes events to help track changes such as newly added events, updated details, or inactive listings.
+The application also categorizes events to help track changes, such as newly added events, updated details, or inactive listings.
 
 ## Features
 
@@ -125,6 +125,12 @@ npm run dev
 * Improve scraper performance and error handling
 * Add user authentication and event bookmarking
 * Add pagination for large event datasets
+
+
+## Links
+
+Live Demo: [Open Project](https://web-scraper-project01.vercel.app/)
+
 
 ## Author
 
