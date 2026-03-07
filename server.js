@@ -8,7 +8,7 @@ const cron=require('node-cron');
 const app=express();
 app.use(cors());
 app.use(express.json());
-mongoose.connect('mongodb+srv://Sydney_scraper:Sydney%40scraper@scraperdatabase.lgcp3vk.mongodb.net/?appName=scraperDatabase').then(()=>{console.log('database connnected')}).catch((e)=>{console.log(e)});
+mongoose.connect('mongodb://localhost:27017/sydneyEvents').then(()=>{console.log('database connnected')}).catch((e)=>{console.log(e)});
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
@@ -41,7 +41,14 @@ cron.schedule("*/10 * * * *", async () => {
   await eventschema.deleteMany({ status: "old" });
 
 });
-
+app.get('/test-db', async (req, res) => {
+  try {
+    const data = await YourModel.find({}); // MongoDB example
+    res.json({ success: true, count: data.length, data });
+  } catch (err) {
+    res.json({ success: false, error: err.message });
+  }
+});
 app.listen('2100',()=>{
     console.log("connection built");
     
