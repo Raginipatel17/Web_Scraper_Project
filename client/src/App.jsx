@@ -10,7 +10,7 @@ function App() {
   // const [showModal, setShowModal] = useState(false);
 
   useEffect(()=>{
-    axios.get("http://localhost:2100/events").then((res)=>setevent(res.data));
+    axios.get("https://web-scraper-project-1.onrender.com/events").then((res)=>setevent(res.data));
   },[]);
   return (
     <>
