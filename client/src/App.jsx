@@ -3,17 +3,23 @@ import './App.css'
 import { useEffect } from 'react';
 import axios from 'axios';
 import TicketModal from './form';
+import Loading from './Loading';
 
 function App() {
   const [events,setevent]=useState([]);
   const [selectedEvent,setselectedEvent]=useState(null);
+  const [loading,setloading]=useState(true);
   // const [showModal, setShowModal] = useState(false);
 
   useEffect(()=>{
-    axios.get("https://web-scraper-project-1.onrender.com/events").then((res)=>setevent(res.data));
+    axios.get("https://web-scraper-project-1.onrender.com/events").then((res)=>{setevent(res.data),setloading(false)}).catch((err) => {
+        console.error(err);
+        setloading(false); // stop loading even if error
+      });
   },[]);
   return (
     <>
+    
     <div className="fixed bg-white w-full z-100">
   <div className="flex items-center p-4 justify-center gap-2">
     <h1 className="font-bold text-4xl font-serif">Events from</h1>
@@ -31,6 +37,7 @@ function App() {
     </div>
     <h1 className='text-2xl font-semibold font-sans m-5 mb-1'>Sydney Events</h1>
     <div className="p-8 grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+      {loading?<Loading></Loading>:''}
       
       {events.map(e => (
         <div key={e._id} className={`p-4 rounded-xl shadow-lg shadow-blue-400  border-blue-400 scale-100 transition delay-20 duration-300 ease-in-out hover:scale-105 hover:transform-gpu cursor-pointer`}>
