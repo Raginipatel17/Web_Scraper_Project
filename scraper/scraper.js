@@ -55,7 +55,7 @@ async function eventscrape() {
       status: "active"
     }
   },
-  { upsert: true, new: true } // create if not exist
+  { upsert: true } // create if not exist
 );
 
       console.log("Saved:", e.title);

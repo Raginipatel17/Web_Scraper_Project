@@ -25,10 +25,19 @@ app.get("/", (req, res) => {
   res.send("Server is running");
 });
 
-app.get('/scrape',async(req,res)=>{
+app.get('/scrape', async (req, res) => {
+  try {
     await scrape();
-    res.end("scrapped");
-})
+    res.send("scraped successfully");
+  } catch (err) {
+    console.log("SCRAPER ERROR:", err);
+
+    res.status(500).json({
+      success: false,
+      error: err.message
+    });
+  }
+});
 app.post('/email',async(req,res)=>{
     const {email,consent,eventid}=req.body;
     await emailschema.create({email,consent,eventid});
@@ -61,7 +70,8 @@ app.get('/test-db', async (req, res) => {
     res.json({ success: false, error: err.message });
   }
 });
-app.listen('2100',()=>{
+app.listen('2100',async()=>{
+    await scrape();
     console.log("connection built");
     
 })
