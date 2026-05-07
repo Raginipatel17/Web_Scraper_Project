@@ -14,12 +14,12 @@ mongoose.connect('mongodb+srv://Sydney_scraper:Sydney%40scraper@scraperdatabase.
 // mongoose.connect('mongodb+srv://Sydney_scraper:Sydney%40scraper@scraperdatabase.lgcp3vk.mongodb.net/?appName=scraperDatabase').then(()=>{console.log('database connnected')}).catch((e)=>{console.log(e)});
 // const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv:Sydney_scraper:Sydney%40scraper@scraperdatabase.lgcp3vk.mongodb.net/test?appName=scraperDatabase', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log("MongoDB connected!"))
-.catch(err => console.log("MongoDB connection error:", err));
+// mongoose.connect('mongodb+srv:Sydney_scraper:Sydney%40scraper@scraperdatabase.lgcp3vk.mongodb.net/test?appName=scraperDatabase', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// })
+// .then(() => console.log("MongoDB connected!"))
+// .catch(err => console.log("MongoDB connection error:", err));
 
 app.get("/", (req, res) => {
   res.send("Server is running");
