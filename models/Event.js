@@ -1,9 +1,11 @@
 const mongoose=require('mongoose');
 const Event=new mongoose.Schema({
     title:String,
-    venue:String,
+    venueText:String,
+    // venueLink:String,
+    date:String,
     city:String,
-    description:String,
+    // description:String,
     category:String,
     image:String,
     source:String,

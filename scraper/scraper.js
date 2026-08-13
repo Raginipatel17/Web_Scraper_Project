@@ -3,18 +3,47 @@ const cheerio = require('cheerio');
 const Event = require('../models/Event');
 const axios = require("axios");
 async function eventscrape() {
-  await Event.updateMany({}, { status: "new" });
+  await Event.updateMany({}, { status: "old" });
   const events = [];
 
   const listUrl = "https://www.eventbrite.com.au/d/australia--sydney/events/";
-  const browser = await puppeteer.launch({headless:true});
+  const browser = await puppeteer.launch({
+  headless: true,
+  args: ['--no-sandbox', '--disable-setuid-sandbox']
+});
   const page = await browser.newPage();
 
-  await page.goto(listUrl, { waitUntil: "networkidle2" });
-  await page.evaluate(async () => {
-    window.scrollBy(0, window.innerHeight);
-    await new Promise(r => setTimeout(r, 3000));
-  });
+  await page.goto(listUrl, {
+    waitUntil: "domcontentloaded",
+    timeout: 60000
+});
+
+  await page.evaluate(() => {
+    return new Promise((resolve) => {
+        let timer;
+
+        const observer = new MutationObserver(() => {
+            clearTimeout(timer);
+
+            timer = setTimeout(() => {
+                observer.disconnect();
+                resolve();
+            }, 2000);
+        });
+
+        observer.observe(document.body, {
+            subtree: true,
+            childList: true
+        });
+
+        // In case there are no changes
+        timer = setTimeout(() => {
+            observer.disconnect();
+            resolve();
+        }, 2000);
+    });
+});
+  
   const html = await page.content();
   const $ = cheerio.load(html);
 
@@ -60,9 +89,10 @@ async function eventscrape() {
 
       console.log("Saved:", e.title);
 
-    } catch (err) {
-      console.log("Failed:", e.eventUrl);
-    }
+    }  catch (err) {
+    console.log("FAILED:", e.eventUrl);
+    console.log("REASON:", err.message);
+}
   }
 
   console.log("Done. Events:", events.length);
@@ -71,14 +101,21 @@ async function eventscrape() {
 
 async function getEventDetails(browser, url) {
   const page = await browser.newPage();
-
-  await page.goto(url, { waitUntil: "networkidle2" });
+  await page.goto(url, {
+    waitUntil: "domcontentloaded",
+    timeout: 60000
+});
 
   const html = await page.content();
   const $ = cheerio.load(html);
+  const date = $("time").first().text().trim();
 
-  const venue = $(".EventDetails_venueAndDateTimeWrapper__TO15z").text().trim();
-  const description = $(".Overview_summaryWrapper__xGQx4").text().trim().slice(0, 200);
+  const venueText = await page.$eval(
+  '[data-testid="event-venue"]',
+  el => el.textContent.trim()
+);
+
+  // const description = $(".Overview_summaryWrapper__xGQx4").text().trim().slice(0, 200);
   let image = $("img[class*='HeroImage']").attr("src");
 
 if(image && image.includes("url=")){
@@ -88,7 +125,7 @@ if(image && image.includes("url=")){
 
   await page.close();
 
-  return { venue, description, image };
+  return { venueText, image, date};
 }
 
 

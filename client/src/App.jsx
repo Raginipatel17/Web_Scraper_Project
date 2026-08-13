@@ -45,7 +45,7 @@ function App() {
           <img src={e.image} alt="" className="h-50 w-full rounded-xl object-cover" />
           <h2 className="font-bold text-lg m-2 mb-0">{e.title}</h2>
           {/* <p>{e.dateTime}</p> */}
-          <p className='className="font-bold m-2'>Venue & Time - {e.venue}</p>
+          <p className='className="font-bold m-2'>Venue & Time - {e.venueText} {e.date}</p>
           <span className='bg-red-400 text-white  px-2 py-1 m-2 rounded-xl cursor-pointer'>{e.status===''?null:e.status}</span>
           <span className='bg-red-400 text-white  px-2 py-1 m-1 rounded-xl cursor-pointer'>{e.category}</span>
           <p className="text-sm m-3">{e.description}</p>

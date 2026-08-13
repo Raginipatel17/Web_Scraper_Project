@@ -1,6 +1,10 @@
 const express=require('express');
 const cors=require('cors');
-const mongoose=require('mongoose');
+const dns = require("dns");
+
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
+
+const mongoose = require("mongoose");
 const scrape=require('./scraper/scraper');
 const eventschema=require('./models/Event');
 const emailschema=require('./models/emaillead')
@@ -9,7 +13,7 @@ const app=express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://Sydney_scraper:Sydney%40scraper@scraperdatabase.lgcp3vk.mongodb.net/test?retryWrites=true&w=majority').then(()=>{console.log('database connnected')}).catch((e)=>{console.log(e)});
+mongoose.connect('mongodb+srv://Sydney_scraper:Ragini5122@scraperdatabase.lgcp3vk.mongodb.net/?appName=scraperDatabase').then(()=>{console.log('database connnected')}).catch((e)=>{console.log(e)});
 
 // mongoose.connect('mongodb+srv://Sydney_scraper:Sydney%40scraper@scraperdatabase.lgcp3vk.mongodb.net/?appName=scraperDatabase').then(()=>{console.log('database connnected')}).catch((e)=>{console.log(e)});
 // const mongoose = require('mongoose');

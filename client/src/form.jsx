@@ -7,7 +7,7 @@ export default function TicketModal({ event, close }) {
   if(!event) return null;
   const submit=async(e)=>{
     e.preventDefault();
-    await axios.post("https://web-scraper-project-1.onrender.com/email",{
+    await axios.post("https://web-scraper-project-1.onrender.com//email",{
       email,
       consent,
       eventid:event._id,
@@ -35,9 +35,10 @@ export default function TicketModal({ event, close }) {
             id="email"
             placeholder="Email"
             className="border w-full p-2 mb-3 rounded"
+            required
             onChange={(e)=>setemail(e.target.value)}
           />
-          <input type="checkbox" id="Consent" name="consent" onChange={(e)=>setconsent(e.target.checked)}/>
+          <input type="checkbox" id="consent" name="consent" onChange={(e)=>setconsent(e.target.checked)}/>
           <label for="consent"> Do we have consent to send meaningful email to you</label>
           <button className="bg-blue-500 text-white px-4 py-2 rounded w-full cursor-pointer" type="submit">
             Continue
