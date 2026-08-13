@@ -81,7 +81,7 @@ async function eventscrape() {
       ...e,
       ...details,
       lastScraped: new Date(),
-      status: "active"
+      status: "new"
     }
   },
   { upsert: true } // create if not exist
