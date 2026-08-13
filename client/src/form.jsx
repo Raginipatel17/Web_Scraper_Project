@@ -7,7 +7,7 @@ export default function TicketModal({ event, close }) {
   if(!event) return null;
   const submit=async(e)=>{
     e.preventDefault();
-    await axios.post("https://web-scraper-project-1.onrender.com//email",{
+    await axios.post("https://web-scraper-project-1.onrender.com/email",{
       email,
       consent,
       eventid:event._id,
