@@ -13,7 +13,7 @@ const app=express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://Sydney_scraper:Ragini5122@scraperdatabase.lgcp3vk.mongodb.net/?appName=scraperDatabase').then(async()=>{console.log('database connnected'); await scrape();}).catch((e)=>{console.log(e)});
+// mongoose.connect('mongodb+srv://Sydney_scraper:Ragini5122@scraperdatabase.lgcp3vk.mongodb.net/?appName=scraperDatabase').then(async()=>{console.log('database connnected'); await scrape();}).catch((e)=>{console.log(e)});
 
 // mongoose.connect('mongodb+srv://Sydney_scraper:Sydney%40scraper@scraperdatabase.lgcp3vk.mongodb.net/?appName=scraperDatabase').then(()=>{console.log('database connnected')}).catch((e)=>{console.log(e)});
 // const mongoose = require('mongoose');
@@ -74,8 +74,27 @@ app.get('/test-db', async (req, res) => {
     res.json({ success: false, error: err.message });
   }
 });
-app.listen('2100',async()=>{
-    await scrape();
-    console.log("connection built");
-    
-})
+async function startServer() {
+    try {
+        await mongoose.connect(
+            'mongodb+srv://Sydney_scraper:Ragini5122@scraperdatabase.lgcp3vk.mongodb.net/?appName=scraperDatabase'
+        );
+
+        console.log("Database connected");
+
+        app.listen(2100, () => {
+            console.log("Server is running on port 2100");
+        });
+
+        // Run scraper once when server starts
+        console.log("Running initial scraper...");
+        await scrape();
+
+        console.log("Initial scraping completed");
+
+    } catch (error) {
+        console.error("STARTUP ERROR:", error);
+    }
+}
+
+startServer();
